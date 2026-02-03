@@ -42,23 +42,42 @@ export default async function PublicDirectoryPage(props) {
 			<div className="max-w-3xl mx-auto px-4 py-12">
 				<div className="grid gap-6">
 					{items?.map((item) => (
-						<div key={item.id} className="bg-white p-6 rounded-xl shadow-sm border hover:shadow-md transition-shadow">
-							<div className="flex justify-between items-start">
+						<div key={item.id} className="bg-white rounded-xl shadow-sm border hover:shadow-md transition-shadow overflow-hidden flex flex-col sm:flex-row">
+
+							{/* --- ZONA DE FOTO --- */}
+							{item.image_url && (
+								<div className="w-full sm:w-48 h-48 sm:h-auto shrink-0 bg-gray-100 relative">
+									<img
+										src={item.image_url}
+										alt={item.title}
+										className="w-full h-full object-cover absolute inset-0"
+									/>
+								</div>
+							)}
+
+							{/* --- ZONA DE CONTENIDO --- */}
+							<div className="p-6 flex-1 flex flex-col justify-between">
 								<div>
 									<h3 className="text-xl font-bold text-gray-900">{item.title}</h3>
-									<p className="text-gray-600 mt-2 leading-relaxed">{item.description}</p>
+									<p className="text-gray-600 mt-2 leading-relaxed line-clamp-3">
+										{item.description}
+									</p>
 								</div>
+
 								{item.website_url && (
-									<a
-										href={item.website_url}
-										target="_blank"
-										rel="noopener noreferrer" // Seguridad extra al abrir links externos
-										className="ml-4 shrink-0 bg-gray-100 text-gray-900 px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-200"
-									>
-										Visitar ↗
-									</a>
+									<div className="mt-4 pt-4 border-t border-gray-100">
+										<a
+											href={item.website_url}
+											target="_blank"
+											rel="noopener noreferrer"
+											className="text-blue-600 font-medium text-sm hover:underline inline-flex items-center gap-1"
+										>
+											Visitar sitio web ↗
+										</a>
+									</div>
 								)}
 							</div>
+
 						</div>
 					))}
 
